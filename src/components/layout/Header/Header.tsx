@@ -41,6 +41,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
     .join("")
     .slice(0, 2)
     .toUpperCase();
+  const showCloseIcon = !isSidebarOpen;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -83,19 +84,19 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
             <span className="relative block h-5 w-5" aria-hidden="true">
               <span
                 className={`absolute left-0 h-0.5 rounded-full bg-current transition-all duration-300 ease-out ${
-                  isSidebarOpen
+                  showCloseIcon
                     ? "top-1/2 w-5 -translate-y-1/2 rotate-45 group-hover:w-5"
                     : "top-[3px] w-5 group-hover:w-4"
                 }`}
               />
               <span
                 className={`absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 rounded-full bg-current transition-all duration-200 ease-out ${
-                  isSidebarOpen ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
+                  showCloseIcon ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
                 }`}
               />
               <span
                 className={`absolute left-0 h-0.5 rounded-full bg-current transition-all duration-300 ease-out ${
-                  isSidebarOpen
+                  showCloseIcon
                     ? "bottom-1/2 w-5 translate-y-1/2 -rotate-45 group-hover:w-5"
                     : "bottom-[3px] w-5 group-hover:w-3"
                 }`}
