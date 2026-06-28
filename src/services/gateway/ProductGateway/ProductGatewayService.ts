@@ -112,14 +112,14 @@ const normalizeProductListPayload = (
   );
   const hasNextPage = toBoolean(
     paginationSource.hasNextPage ??
-      payload.hasNextPage ??
-      payload.data?.hasNextPage,
+    payload.hasNextPage ??
+    payload.data?.hasNextPage,
     page < totalPages
   );
   const hasPrevPage = toBoolean(
     paginationSource.hasPrevPage ??
-      payload.hasPrevPage ??
-      payload.data?.hasPrevPage,
+    payload.hasPrevPage ??
+    payload.data?.hasPrevPage,
     page > 1
   );
 

@@ -45,7 +45,10 @@ const Layout = () => {
       )}
 
       <div className={`flex min-h-screen flex-col transition-all duration-300 ${isSidebarOpen ? "lg:pl-72" : "lg:pl-0"}`}>
-        <Header toggleSidebar={toggleSidebar} />
+        <Header
+          isSidebarOpen={isSidebarOpen}
+          toggleSidebar={toggleSidebar}
+        />
         <Content />
         <Footer />
       </div>

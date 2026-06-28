@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { IoNotificationsOutline, IoSearchOutline } from "react-icons/io5";
 import { MdDarkMode, MdLightMode, MdOutlineLogout } from "react-icons/md";
 import { useTheme } from "../../../hooks/useTheme";
-import { FiGlobe, FiMaximize, FiMenu, FiSettings, FiShoppingCart } from "react-icons/fi";
+import { FiGlobe, FiMaximize, FiSettings, FiShoppingCart } from "react-icons/fi";
 import { deleteCookie, getCookie } from "../../../utils/cookie";
 import { AuthService } from "../../../services/common/AuthService/AuthService";
 
 interface HeaderProps {
+  isSidebarOpen: boolean;
   toggleSidebar: () => void;
 }
 
-const Header = ({ toggleSidebar }: HeaderProps) => {
+const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const notificationRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
@@ -74,11 +75,32 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
         <div className="flex min-w-0 flex-1 items-center gap-3">
           <button
             type="button"
-            aria-label="Toggle sidebar"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
+            aria-label={isSidebarOpen ? "Hide sidebar" : "Show sidebar"}
+            aria-expanded={isSidebarOpen}
+            className="group inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
             onClick={toggleSidebar}
           >
-            <FiMenu className="text-xl" />
+            <span className="relative block h-5 w-5" aria-hidden="true">
+              <span
+                className={`absolute left-0 h-0.5 rounded-full bg-current transition-all duration-300 ease-out ${
+                  isSidebarOpen
+                    ? "top-1/2 w-5 -translate-y-1/2 rotate-45 group-hover:w-5"
+                    : "top-[3px] w-5 group-hover:w-4"
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 rounded-full bg-current transition-all duration-200 ease-out ${
+                  isSidebarOpen ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
+                }`}
+              />
+              <span
+                className={`absolute left-0 h-0.5 rounded-full bg-current transition-all duration-300 ease-out ${
+                  isSidebarOpen
+                    ? "bottom-1/2 w-5 translate-y-1/2 -rotate-45 group-hover:w-5"
+                    : "bottom-[3px] w-5 group-hover:w-3"
+                }`}
+              />
+            </span>
           </button>
 
           <div className="hidden w-full max-w-xl items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-500 transition focus-within:border-indigo-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-indigo-500/10 dark:border-white/10 dark:bg-white/5 dark:text-slate-400 dark:focus-within:border-indigo-400/50 dark:focus-within:bg-white/10 md:flex">
