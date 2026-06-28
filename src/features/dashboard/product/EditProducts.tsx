@@ -11,7 +11,7 @@ import PublishDateInput from "../../../components/common/DateForm/DateForm";
 import RichTextEditor from "../../../components/common/RichTextEditor/RichTextEditor";
 import ButtonWithEmoji from "../../../components/Button/ButtonWithEmoji/ButtonWithEmoji";
 import { GoPlus, GoDownload } from "react-icons/go";
-import ProductService from "../../../services/common/ProductService/ProductService";
+import ProductService from "../../../services/gateway/ProductGateway/ProductGatewayService";
 import { FormImage, Product, ProductVariant } from "../../../types/ProductType";
 import { toAbs } from "../../../utils/image";
 import CategoryService from "../../../services/common/Category/CategoryService";

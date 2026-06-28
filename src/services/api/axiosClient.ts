@@ -1,6 +1,14 @@
-import axios from "axios";
+import axios, {
+  type AxiosInstance,
+  type InternalAxiosRequestConfig,
+} from "axios";
 import { getCookie, setCookie } from "../../utils/cookie";
-import { API_KEY, API_URL, API_WORKER_URL } from "./config";
+import {
+  API_KEY,
+  API_URL,
+  API_WORKER_URL,
+  PRODUCT_GATEWAY_URL,
+} from "./config";
 
 const axiosClient = axios.create({
   baseURL: API_URL,
@@ -12,6 +20,11 @@ export const axiosClientWorker = axios.create({
   withCredentials: true,
 });
 
+export const axiosProductGatewayClient = axios.create({
+  baseURL: PRODUCT_GATEWAY_URL,
+  withCredentials: true,
+});
+
 const authPaths = ["/login", "/register", "/refresh", "/logout"];
 
 const isAuthPath = (url?: string) => {
@@ -20,42 +33,34 @@ const isAuthPath = (url?: string) => {
   }
 
   return authPaths.some(
-    (path) => url === path || url.endsWith(path) || url.includes(`${API_URL}${path}`)
+    (path) =>
+      url === path || url.endsWith(path) || url.includes(`${API_URL}${path}`)
   );
 };
 
-// Add the access token to headers on every request
-axiosClient.interceptors.request.use(
-  (config) => {
-    const token = getCookie("accessToken");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    if (API_KEY) {
-      config.headers["x-api-key"] = API_KEY;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
+const addAuthHeaders = (config: InternalAxiosRequestConfig) => {
+  const token = getCookie("accessToken");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  if (API_KEY) {
+    config.headers["x-api-key"] = API_KEY;
+  }
+  return config;
+};
+
+axiosClient.interceptors.request.use(addAuthHeaders, (error) =>
+  Promise.reject(error)
+);
+axiosClientWorker.interceptors.request.use(addAuthHeaders, (error) =>
+  Promise.reject(error)
+);
+axiosProductGatewayClient.interceptors.request.use(addAuthHeaders, (error) =>
+  Promise.reject(error)
 );
 
-// Add the access token to headers on every request for worker
-axiosClientWorker.interceptors.request.use(
-  (config) => {
-    const token = getCookie("accessToken");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    if (API_KEY) {
-      config.headers["x-api-key"] = API_KEY;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-// Handle expired token (401)
-axiosClient.interceptors.response.use(
+const addTokenRefresh = (client: AxiosInstance) => {
+  client.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
@@ -86,7 +91,7 @@ axiosClient.interceptors.response.use(
 
         // Add new token to header and retry original request
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return axiosClient(originalRequest);
+        return client(originalRequest);
       } catch (refreshErr) {
         console.error("Refresh failed:", refreshErr);
         // Optional: redirect to login if refresh fails
@@ -96,6 +101,10 @@ axiosClient.interceptors.response.use(
 
     return Promise.reject(error);
   }
-);
+  );
+};
+
+addTokenRefresh(axiosClient);
+addTokenRefresh(axiosProductGatewayClient);
 
 export default axiosClient;

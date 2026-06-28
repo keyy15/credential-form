@@ -12,6 +12,7 @@ import { toAbs } from "../../../utils/image";
 interface ProductCardProps {
   product: Product;
   productVariant?: ProductVariant;
+  badgeIndex?: number;
   userClick?: {
     addToCart: () => void;
     quickView: () => void;
@@ -43,6 +44,7 @@ function getPrimaryImageURL(p: Product, v?: ProductVariant): string {
 export default function ProductCard({
   product,
   productVariant,
+  badgeIndex,
   userClick,
 }: ProductCardProps) {
   const imgSrc = getPrimaryImageURL(product, productVariant);
@@ -65,15 +67,45 @@ export default function ProductCard({
           )}
 
           <div className="absolute top-2 left-2 flex flex-col gap-1">
-            <div className="w-fit flex items-center gap-1 bg-[#0EA5E8] px-2 py-[1px] rounded">
-              <BsLightningCharge className="text-white text-[11px]" />
-              <p className="text-[11px] font-bold text-white">New Arrival</p>
-            </div>
-            {product?.discountPercent && product?.discountPercent > 0 ? (
-              <div className="w-fit bg-[#ff8e6f] font-bold text-white text-[11px] px-2 py-[1px] rounded">
-                {product?.discountPercent}% Off
+            {badgeIndex === 0 && (
+              <>
+                <div className="w-fit flex items-center gap-1 bg-[#0EA5E8] px-2 py-[2px] rounded">
+                  <BsLightningCharge className="text-white text-[10px]" />
+                  <p className="text-[10px] font-bold text-white uppercase tracking-wider">Trending</p>
+                </div>
+                <div className="w-fit bg-[#ff8e6f] font-bold text-white text-[10px] px-2 py-[2px] rounded uppercase tracking-wider">
+                  12% Off
+                </div>
+              </>
+            )}
+            {badgeIndex === 1 && (
+              <div className="w-fit bg-[#0EA5E8] font-bold text-white text-[10px] px-2 py-[2px] rounded uppercase tracking-wider">
+                15% Off
               </div>
-            ) : null}
+            )}
+            {badgeIndex === 2 && (
+              <div className="w-fit bg-[#e354d4] font-bold text-white text-[10px] px-2 py-[2px] rounded uppercase tracking-wider">
+                24% Off
+              </div>
+            )}
+            {badgeIndex === 3 && (
+              <div className="w-fit bg-[#10b981] font-bold text-white text-[10px] px-2 py-[2px] rounded uppercase tracking-wider">
+                60% Off
+              </div>
+            )}
+            {badgeIndex === undefined && (
+              <>
+                <div className="w-fit flex items-center gap-1 bg-[#0EA5E8] px-2 py-[2px] rounded">
+                  <BsLightningCharge className="text-white text-[10px]" />
+                  <p className="text-[10px] font-bold text-white uppercase tracking-wider">New Arrival</p>
+                </div>
+                {product?.discountPercent && product?.discountPercent > 0 ? (
+                  <div className="w-fit bg-[#ff8e6f] font-bold text-white text-[10px] px-2 py-[2px] rounded uppercase tracking-wider">
+                    {product?.discountPercent}% Off
+                  </div>
+                ) : null}
+              </>
+            )}
           </div>
 
           <div className="absolute bottom-2 right-2">

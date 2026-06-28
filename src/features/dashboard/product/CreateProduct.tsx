@@ -6,9 +6,8 @@ import ProductDescriptionInput from "../../../components/common/ProductDescripti
 import ProductImageInput from "../../../components/common/ProductImageInput/ProductImageInput";
 import PublishDateInput from "../../../components/common/DateForm/DateForm";
 import PublishDateTimeInput from "../../../components/common/TimeForm/TimeForm";
-import axiosClient from "../../../services/api/axiosClient";
 import { OptionType } from "../../../components/common/SelectItemField/SelectItemField";
-import ProductService from "../../../services/common/ProductService/ProductService";
+import ProductService from "../../../services/gateway/ProductGateway/ProductGatewayService";
 import RichTextEditor from "../../../components/common/RichTextEditor/RichTextEditor";
 import PrimaryButton from "../../../components/Button/PrimaryButton/PrimaryButton";
 import { CategoryType } from "../../../types/Category";
@@ -18,6 +17,8 @@ import { usePopup } from "../../../context/PopupContext";
 import { BrandType } from "../../../types/BrandType";
 import { FormImage } from "../../../types/ProductType";
 import { useToast } from "../../../context/ToasterContext";
+import CategoryService from "../../../services/common/Category/CategoryService";
+import BrandService from "../../../services/common/BrandService/BrandService";
 
 const CreateProduct = () => {
   const [name, setName] = useState<string>("");
@@ -74,7 +75,7 @@ const CreateProduct = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axiosClient.get("/categories");
+      const response = await CategoryService.getAllCategories();
       const mappedOptions = response.data.categories.map(
         (cat: CategoryType) => ({
           value: cat._id ?? "",
@@ -89,12 +90,12 @@ const CreateProduct = () => {
 
   const fetchBrands = async () => {
     try {
-      const response = await axiosClient.get("/brands");
+      const response = await BrandService.getAllBrands();
       const mappedOptions = response?.data?.brands?.map((b: BrandType) => ({
         value: b?._id ?? "",
         label: b.name ?? "Unnamed",
       }));
-      setBrandOptions(mappedOptions);
+      setBrandOptions(mappedOptions || []);
     } catch (error) {
       console.error("Failed to fetch categories:", error);
     }

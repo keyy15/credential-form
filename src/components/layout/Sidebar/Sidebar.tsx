@@ -158,16 +158,22 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
     }));
   };
 
+  const handleItemClick = () => {
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      onClose?.();
+    }
+  };
+
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-40 flex w-72 flex-col overflow-hidden border-r border-white/[0.06] bg-[#19191c] text-white shadow-2xl transition-transform duration-300 lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+      className={`fixed inset-y-0 left-0 z-40 flex w-72 flex-col overflow-hidden border-r border-white/[0.06] bg-[#111c2d] text-slate-300 shadow-2xl transition-transform duration-300 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
     >
       <div className="flex h-[73px] items-center justify-between border-b border-white/[0.06] px-6">
         <NavLink
           to="/dashboard"
           className="flex min-w-0 items-center"
-          onClick={onClose}
+          onClick={handleItemClick}
         >
           <img src="/desktop-dark.png" alt="Xintra" className="h-[28px] w-auto" />
         </NavLink>
@@ -185,7 +191,7 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
       <nav className="flex-1 overflow-y-auto px-4 py-5 no-scrollbar">
         {navigationGroups.map((group) => (
           <div key={group.title} className="mb-7 last:mb-0">
-            <p className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#61748f] opacity-80">
+            <p className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#61748f] opacity-85">
               {group.title}
             </p>
             <div className="space-y-1">
@@ -235,7 +241,7 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
                                   key={child.label}
                                   to={child.path}
                                   end={child.end}
-                                  onClick={onClose}
+                                  onClick={handleItemClick}
                                   className={`group flex items-center gap-3 px-3 py-2 text-[13.5px] font-medium transition-colors duration-200 ${childActive
                                     ? "text-white bg-transparent"
                                     : "text-slate-400 hover:text-white bg-transparent"
@@ -263,7 +269,7 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
                     key={item.label}
                     to={item.path}
                     end={item.end}
-                    onClick={onClose}
+                    onClick={handleItemClick}
                     className={`group flex items-center gap-3.5 px-3 py-2.5 text-[14px] font-medium transition-colors duration-200 ${active
                       ? "text-white bg-transparent"
                       : "text-slate-400 hover:text-white bg-transparent"

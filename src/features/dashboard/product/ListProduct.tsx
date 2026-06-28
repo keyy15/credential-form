@@ -8,7 +8,7 @@ import React, {
 import { CiEdit } from "react-icons/ci";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
-import ProductService from "../../../services/common/ProductService/ProductService";
+import ProductService from "../../../services/gateway/ProductGateway/ProductGatewayService";
 import { Product } from "../../../types/ProductType";
 import { motion, AnimatePresence } from "framer-motion";
 import socket from "../../../services/socket/socket";

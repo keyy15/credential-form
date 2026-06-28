@@ -1,8 +1,8 @@
-import axiosClient from "../../api/axiosClient";
-import { BrandType } from "../../../types/BrandType";
+import { axiosProductGatewayClient } from "../../api/axiosClient";
+import { BrandStats } from "../../../types/BrandType";
 
 const BrandService = {
-    getAllBrands: () => axiosClient.get<BrandType>("/brands"),
-}
+  getAllBrands: () => axiosProductGatewayClient.get<BrandStats>("/brands"),
+};
 
 export default BrandService;

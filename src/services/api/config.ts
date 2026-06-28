@@ -13,4 +13,8 @@ export const API_WORKER_URL = trimTrailingSlash(
   import.meta.env.VITE_API_URL_WORKER || API_URL
 );
 
+export const PRODUCT_GATEWAY_URL = trimTrailingSlash(
+  import.meta.env.VITE_PRODUCT_GATEWAY_URL || API_URL
+);
+
 export const API_KEY = import.meta.env.VITE_API_KEY;

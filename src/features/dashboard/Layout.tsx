@@ -6,7 +6,12 @@ import Footer from "../../components/layout/Footer/Footer";
 import axiosClient from "../../services/api/axiosClient";
 
 const Layout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth >= 1024;
+    }
+    return false;
+  });
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -39,7 +44,7 @@ const Layout = () => {
         />
       )}
 
-      <div className="flex min-h-screen flex-col transition-all duration-300 lg:pl-72">
+      <div className={`flex min-h-screen flex-col transition-all duration-300 ${isSidebarOpen ? "lg:pl-72" : "lg:pl-0"}`}>
         <Header toggleSidebar={toggleSidebar} />
         <Content />
         <Footer />
