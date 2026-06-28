@@ -225,17 +225,15 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
         }`}
     >
       <div
-        className={`flex h-[68px] items-center border-b border-white/[0.06] transition-all duration-300 ${
-          showCollapsedSidebar ? "justify-center px-0" : "justify-between px-6"
-        }`}
+        className={`flex h-[68px] items-center border-b border-white/[0.06] transition-all duration-300 ${showCollapsedSidebar ? "justify-center px-0" : "justify-between px-6"
+          }`}
       >
         <NavLink
           to="/dashboard"
-          className={`flex min-w-0 items-center ${
-            showCollapsedSidebar
+          className={`flex min-w-0 items-center ${showCollapsedSidebar
               ? "h-10 w-10 justify-center overflow-hidden rounded-xl"
               : ""
-          }`}
+            }`}
           onClick={handleItemClick}
         >
           <img
@@ -260,9 +258,8 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
       </div>
 
       <nav
-        className={`flex-1 overflow-y-auto no-scrollbar ${
-          showCollapsedSidebar ? "px-0 py-4" : "px-4 py-5"
-        }`}
+        className={`flex-1 overflow-y-auto no-scrollbar ${showCollapsedSidebar ? "px-0 py-4" : "px-4 py-5"
+          }`}
       >
         {!showCollapsedSidebar ? (
           navigationGroups.map((group) => (
@@ -360,7 +357,7 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
                       to={item.path}
                       end={item.end}
                       onClick={handleItemClick}
-                    className={`group flex items-center gap-3.5 px-3 py-2.5 text-[14px] font-medium transition-colors duration-200 ${active
+                      className={`group flex items-center gap-3.5 px-3 py-2.5 text-[14px] font-medium transition-colors duration-200 ${active
                         ? "text-white bg-transparent"
                         : "text-slate-400 hover:text-white bg-transparent"
                         }`}
@@ -402,11 +399,10 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
                         aria-label={item.label}
                         title={item.label}
                         onClick={handleItemClick}
-                        className={`group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200 ${
-                          active
+                        className={`group relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200 ${active
                             ? "bg-white/10 text-white"
                             : "text-slate-400 hover:bg-white/10 hover:text-white"
-                        }`}
+                          }`}
                       >
                         <Icon className="text-lg" />
                         <span className="pointer-events-none absolute left-full top-1/2 z-50 ml-3 -translate-y-1/2 whitespace-nowrap rounded-md bg-slate-950 px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-xl transition-opacity duration-150 group-hover:opacity-100">

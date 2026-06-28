@@ -301,12 +301,12 @@ const EditProducts = () => {
 
   return (
     <>
-      <div className="relative w-full h-full bg-white dark:bg-[#19191C] shadow rounded">
+      <div className="relative h-full w-full rounded bg-white shadow dark:bg-[#19191C]">
         <form onSubmit={handleSubmit} method="POST">
-          <div className="w-full h-fit flex justify-center p-4 gap-8 border-b border-b-gray-200 border-dashed">
+          <div className="flex h-fit w-full flex-col gap-6 border-b border-b-gray-200 border-dashed p-4 xl:flex-row xl:gap-8">
             {/* LEFT SECTION */}
-            <div className="w-1/2 h-full grid grid-cols-2 gap-x-6 gap-y-4">
-              <div className="row-start-1 row-end-2 col-start-1 col-end-3">
+            <div className="grid h-full w-full grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2 xl:w-1/2">
+              <div className="md:col-span-2">
                 <FormField
                   label="Product Name"
                   placeholder="Name"
@@ -315,7 +315,7 @@ const EditProducts = () => {
                   onChange={(event) => setName(event.target.value)}
                 />
               </div>
-              <div className="row-start-2 row-end-3 col-start-1 col-end-2">
+              <div>
                 <SelectItemField
                   label="Category"
                   options={categoriesOptions}
@@ -324,7 +324,7 @@ const EditProducts = () => {
                   placeholder="Select Category"
                 />
               </div>
-              <div className="row-start-2 row-end-3 col-start-2 col-end-3">
+              <div>
                 <SelectItemField
                   label="Currency"
                   options={["USD", "EURO", "RIEL"]}
@@ -333,7 +333,7 @@ const EditProducts = () => {
                   onChange={(val) => setCurrency(val)}
                 />
               </div>
-              <div className="row-start-3 row-end-4 col-start-1 col-end-2">
+              <div>
                 <SelectItemField
                   label="Brand"
                   options={brandOptions}
@@ -342,7 +342,7 @@ const EditProducts = () => {
                   value={selectedBrandId}
                 />
               </div>
-              <div className="row-start-3 row-end-4 col-start-2 col-end-3">
+              <div>
                 <FormField
                   label="Enter Cost"
                   placeholder="Cost"
@@ -351,7 +351,7 @@ const EditProducts = () => {
                   onChange={handleCostChange}
                 />
               </div>
-              <div className="row-start-4 row-end-5 col-start-1 col-end-3">
+              <div className="md:col-span-2">
                 <ButtonWithEmoji
                   label="Varaints"
                   btnClass="!w-full !bg-[rgba(92,103,247,0.1)] !border !border-transparent !text-[rgba(92,103,247)] !font-semibold !px-[6px] !py-[6px] !rounded hover:!bg-[rgba(92,103,247)] hover:!text-white hover:!border hover:!border-[rgba(92,103,247)] transition-all duration-300"
@@ -367,7 +367,7 @@ const EditProducts = () => {
                   }
                 />
               </div>
-              <div className="row-start-5 row-end-6 col-start-1 col-end-3 ">
+              <div className="md:col-span-2">
                 <ProductDescriptionInput
                   label="Product Description"
                   helpText="*Description should not exceed 500 letters"
@@ -375,13 +375,13 @@ const EditProducts = () => {
                   value={description}
                 />
               </div>
-              <div className="row-start-6 row-end-6 col-start-1 col-end-3">
+              <div className="md:col-span-2">
                 <RichTextEditor label="Product Features" value={feature} />
               </div>
             </div>
             {/* RIGHT SECTION */}
-            <div className="w-1/2 h-full grid grid-cols-6 gap-4">
-              <div className="col-span-2">
+            <div className="grid h-full w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6 xl:w-1/2">
+              <div className="sm:col-span-1 lg:col-span-2">
                 <FormField
                   label="Actual Price"
                   placeholder="Actual price"
@@ -389,7 +389,7 @@ const EditProducts = () => {
                   type="text"
                 />
               </div>
-              <div className="col-span-2 col-start-3">
+              <div className="sm:col-span-1 lg:col-span-2">
                 <FormField
                   label="Dealer Price"
                   placeholder="Dealer Price"
@@ -397,44 +397,44 @@ const EditProducts = () => {
                   type="text"
                 />
               </div>
-              <div className="col-span-2 col-start-5">
+              <div className="sm:col-span-1 lg:col-span-2">
                 <FormField label="Discount" placeholder="Discount" />
               </div>
-              <div className="col-span-3 row-start-2">
+              <div className="sm:col-span-1 lg:col-span-3">
                 <FormField
                   label="Product Type"
                   placeholder="Type"
                   value={productType}
                 />
               </div>
-              <div className="col-span-3 col-start-4 row-start-2">
+              <div className="sm:col-span-1 lg:col-span-3">
                 <FormField
                   label="Item Weight"
                   placeholder="Weight"
                   value={weight}
                 />
               </div>
-              <div className="col-span-6 row-span-2 row-start-3">
+              <div className="sm:col-span-2 lg:col-span-6">
                 <ProductImageInput
                   label="Product Image"
                   onChange={(files) => setImages(files)}
                   value={images}
                 />
               </div>
-              <div className="col-span-6 row-span-2 row-start-5">
+              <div className="sm:col-span-2 lg:col-span-6">
                 <ProductImageInput label="Warranty Documents:" />
               </div>
-              <div className="col-span-6 row-start-7">
+              <div className="sm:col-span-2 lg:col-span-6">
                 <PublishDateInput label="Publish Date" value={updatedDate} />
               </div>
-              <div className="col-span-6 row-start-8">
+              <div className="sm:col-span-2 lg:col-span-6">
                 <PublishDateInput
                   label="Publish Time"
                   type="time"
                   value={updatedTime}
                 />
               </div>
-              <div className="col-span-6 row-start-9">
+              <div className="sm:col-span-2 lg:col-span-6">
                 <SelectItemField
                   label="Published Status"
                   options={["Published", "Unpublished"]}
@@ -443,7 +443,7 @@ const EditProducts = () => {
                   value={status}
                 />
               </div>
-              <div className="col-span-6 row-start-10">
+              <div className="sm:col-span-2 lg:col-span-6">
                 <MultiSelect
                   options={["IPhone", "Samsung", "Nokia", "Leang"]}
                   placeholder="Tag"
@@ -452,7 +452,7 @@ const EditProducts = () => {
                   value={tag}
                 />
               </div>
-              <div className="col-span-6 row-start-11">
+              <div className="sm:col-span-2 lg:col-span-6">
                 <SelectItemField
                   label="Availability"
                   options={["Stock", "Out Of Stock"]}
@@ -462,7 +462,7 @@ const EditProducts = () => {
               </div>
             </div>
           </div>
-          <div className="w-full h-fit flex justify-end p-4 gap-2">
+          <div className="flex h-fit w-full flex-col justify-end gap-2 p-4 sm:flex-row">
             <ButtonWithEmoji
               label="Add Product"
               emoji={<GoPlus />}

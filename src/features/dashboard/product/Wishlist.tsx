@@ -86,20 +86,20 @@ const Wishlist = () => {
 
   return (
     <div className="w-full h-fit flex flex-col gap-6">
-      <div className="w-full h-fit bg-white dark:bg-[#19191C] p-4 shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] rounded">
-        <div className="w-full h-fit flex justify-between items-center">
+      <div className="h-fit w-full rounded bg-white p-4 shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] dark:bg-[#19191C]">
+        <div className="flex h-fit w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="w-fit h-fit">
             <h4 className="font-semibold text-[15.2px] font-sans text-[#212B37] dark:text-white">
               My Wishlists
             </h4>
           </div>
-          <div className="w-fit h-fit flex justify-center items-center gap-2">
+          <div className="flex h-fit w-full items-center justify-start gap-2 sm:w-fit sm:justify-center">
             <SearchBox />
             <Filter />
           </div>
         </div>
         <div className="w-full h-fit mt-4">
-          <div className="w-full h-fit flex justify-between items-center p-2 bg-[#F9F9FA] dark:bg-[#1f2937] rounded">
+          <div className="flex h-fit w-full flex-col gap-3 rounded bg-[#F9F9FA] p-2 dark:bg-[#1f2937] sm:flex-row sm:items-center sm:justify-between">
             <p className="text-[0.9375rem] text-[#212B37] dark:text-white font-sans ml-2">
               Adding{" "}
               <span className="text-[#E354D4] font-bold">
@@ -109,7 +109,7 @@ const Wishlist = () => {
             </p>
             <a
               href=""
-              className="flex justify-center items-center gap-2 text-[#9E5Cf7] font-semibold text-[13.6px] bg-[rgba(158,92,247,0.1)] dark:bg-[rgba(158,92,247,0.2)] py-[6px] px-[12px] rounded"
+              className="flex w-fit items-center justify-center gap-2 rounded bg-[rgba(158,92,247,0.1)] px-[12px] py-[6px] text-[13.6px] font-semibold text-[#9E5Cf7] dark:bg-[rgba(158,92,247,0.2)]"
             >
               Checkout All
               <IoArrowForward />
@@ -117,7 +117,7 @@ const Wishlist = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-fit grid grid-cols-2 gap-6">
+      <div className="grid h-fit w-full grid-cols-1 gap-6 lg:grid-cols-2">
         {product?.map((item: any) => (
           <WishlistItem
             product={item}

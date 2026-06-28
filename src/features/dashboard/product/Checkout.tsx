@@ -32,14 +32,14 @@ const Checkout = () => {
   ];
 
   return (
-    <div className="w-full h-fit flex justify-between gap-4">
-      <div className="basis-9/12 h-fit flex flex-col bg-white dark:bg-[#19191C] shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] p-[1rem] rounded">
-        <ul className="w-full h-fit block sm:flex justify-around border border-[#ecf3fb] dark:border-[#2d3748] border-dashed border-b-0 bg-[#F9F9FA] dark:bg-[#1f2937] rounded-t transform scale-x-100">
+    <div className="flex h-fit w-full flex-col justify-between gap-4 xl:flex-row">
+      <div className="flex h-fit w-full flex-col rounded bg-white p-[1rem] shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] dark:bg-[#19191C] xl:basis-9/12">
+        <ul className="flex h-fit w-full overflow-x-auto rounded-t border border-b-0 border-dashed border-[#ecf3fb] bg-[#F9F9FA] dark:border-[#2d3748] dark:bg-[#1f2937] sm:justify-around">
           {tabs.map((tab, index) => (
             <li
               key={index}
               onClick={() => setActiveTab(index)}
-              className={`group relative p-3 cursor-pointer transition-colors duration-300 ${activeTab === index
+              className={`group relative min-w-max cursor-pointer p-3 transition-colors duration-300 ${activeTab === index
                 ? "border-b-[#5C67F7]"
                 : "hover:border-b-[#5C67F7]"
                 }`}
@@ -74,11 +74,11 @@ const Checkout = () => {
               <p className="text-[#6e829f] dark:text-[#cbd5f5] text-[1.25rem] opacity-50 font-semibold font-sans">
                 01
               </p>
-              <div className="w-full h-fit grid grid-cols-2 gap-4">
-                <p className="col-span-2 row-start-1 row-end-2 text-[0.9375rem] font-semibold font-sans text-[#212b37] dark:text-white">
+              <div className="grid h-fit w-full grid-cols-1 gap-4 md:grid-cols-2">
+                <p className="text-[0.9375rem] font-semibold font-sans text-[#212b37] dark:text-white md:col-span-2">
                   Shipping Methods :
                 </p>
-                <div className="col-start-1 col-end-2 row-start-2 row-end-3">
+                <div>
                   <ShippingCard
                     shipImg="https://sprukomarket.com/products/html/bootstrap/xintra/dist/assets/images/ecommerce/png/21.png"
                     shipMethod="UPS"
@@ -89,7 +89,7 @@ const Checkout = () => {
                     onChange={() => setSelectedMethod("UPS")}
                   />
                 </div>
-                <div className="col-start-2 col-end-3 row-start-2 row-end-3">
+                <div>
                   <ShippingCard
                     shipImg="https://sprukomarket.com/products/html/bootstrap/xintra/dist/assets/images/ecommerce/png/22.png"
                     shipMethod="USPS"
@@ -101,11 +101,11 @@ const Checkout = () => {
                   />
                 </div>
               </div>
-              <div className="w-full h-fit grid grid-cols-2 gap-4 mt-3">
-                <p className="col-span-2 text-[0.9375rem] font-semibold font-sans text-[#212b37] dark:text-white">
+              <div className="mt-3 grid h-fit w-full grid-cols-1 gap-4 md:grid-cols-2">
+                <p className="text-[0.9375rem] font-semibold font-sans text-[#212b37] dark:text-white md:col-span-2">
                   Shipping Address :
                 </p>
-                <div className="col-start-1 col-end-2 row-start-2 row-end-3">
+                <div>
                   <ShipAddress
                     shipLabel="My Home Address"
                     name="shipping-address"
@@ -113,7 +113,7 @@ const Checkout = () => {
                     onChange={() => setSelectedAddress("home")}
                   />
                 </div>
-                <div className="col-start-2 col-end-3 row-start-2 row-end-3">
+                <div>
                   <ShipAddress
                     shipLabel="Work Place Address"
                     name="shipping-address"
@@ -145,30 +145,30 @@ const Checkout = () => {
               <p className="text-[#6e829f] dark:text-[#cbd5f5] text-[1.25rem] opacity-50 font-semibold font-sans">
                 02
               </p>
-              <div className="w-full h-fit grid grid-cols-2 gap-4">
-                <p className="col-span-2 row-start-1 row-end-2 text-[0.9375rem] font-semibold font-sans text-[#212b37] dark:text-white">
+              <div className="grid h-fit w-full grid-cols-1 gap-4 md:grid-cols-2">
+                <p className="text-[0.9375rem] font-semibold font-sans text-[#212b37] dark:text-white md:col-span-2">
                   Personal Details :
                 </p>
-                <div className="col-span-2 grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:col-span-2 md:grid-cols-2">
                   <div className="">
                     <FormInput label="First Name" placeholder="First Name" />
                   </div>
                   <div className="">
                     <FormInput label="Last Name" placeholder="Last Name" />
                   </div>
-                  <div className="col-span-2">
+                  <div className="md:col-span-2">
                     <FormInput
                       label="Email"
                       placeholder="smeyhem01@gmail.com"
                     />
                   </div>
-                  <div className="col-span-2">
+                  <div className="md:col-span-2">
                     <FormInput label="Phone no" placeholder="061 87 50 89" />
                   </div>
                 </div>
               </div>
             </div>
-            <div className="w-full p-3 flex justify-between items-center border border-b-0 border-r-0 border-l-0 border-[#ecf3fb] dark:border-[#2d3748] border-dashed">
+            <div className="flex w-full flex-col gap-3 border border-b-0 border-l-0 border-r-0 border-dashed border-[#ecf3fb] p-3 dark:border-[#2d3748] sm:flex-row sm:items-center sm:justify-between">
               <PersonalDetail
                 label="Back To Shipping"
                 emoji={<MdOutlineLocalShipping />}
@@ -200,7 +200,7 @@ const Checkout = () => {
                 <p className="col-span-2 row-start-1 row-end-2 text-[0.9375rem] font-semibold font-sans text-[#212b37] dark:text-white">
                   Payment Details :
                 </p>
-                <div className="w-full flex items-center gap-3">
+                <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                   <CheckBoxRedius
                     label="Credit/Debit Card"
                     name="payment-select"
@@ -220,26 +220,26 @@ const Checkout = () => {
                     onChange={() => setSelectedPayment("upi")}
                   />
                 </div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="col-span-3">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <div className="sm:col-span-3">
                     <FormInput
                       label="Card Number"
                       placeholder="1234 5678 9123"
                     />
                   </div>
-                  <div className="col-span-3 row-start-2">
+                  <div className="sm:col-span-3">
                     <FormInput
                       label="Name On Card"
                       placeholder="HEM PORNLEURAKSMEY"
                     />
                   </div>
-                  <div className="row-start-3">
+                  <div>
                     <FormInput label="Expiration Date" placeholder="08/24" />
                   </div>
-                  <div className="row-start-3">
+                  <div>
                     <FormInput label="CVV" placeholder="123" />
                   </div>
-                  <div className="row-start-3">
+                  <div>
                     <FormInput
                       label="OTP"
                       placeholder="123456"
@@ -255,18 +255,18 @@ const Checkout = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-full h-fit grid grid-cols-2 gap-4 mt-3">
-                <p className="col-span-2 row-start-1 row-end-2 text-[0.9375rem] font-semibold font-sans text-[#212b37] dark:text-white">
+              <div className="mt-3 grid h-fit w-full grid-cols-1 gap-4 md:grid-cols-2">
+                <p className="text-[0.9375rem] font-semibold font-sans text-[#212b37] dark:text-white md:col-span-2">
                   Saved Card :
                 </p>
-                <div className="col-start-1 col-end-2 row-start-2 row-end-3">
+                <div>
                   <CreditCard
                     creditImg="https://sprukomarket.com/products/html/bootstrap/xintra/dist/assets/images/ecommerce/png/26.png"
                     creditLabel="XXXX-XXXX-XXXX-XXXX"
                     creditChecked={true}
                   />
                 </div>
-                <div className="col-start-2 col-end-3 row-start-2 row-end-3">
+                <div>
                   <CreditCard
                     creditImg="https://sprukomarket.com/products/html/bootstrap/xintra/dist/assets/images/ecommerce/png/27.png"
                     creditLabel="XXXX-XXXX-XXXX-XXXX"
@@ -275,7 +275,7 @@ const Checkout = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full p-3 flex justify-between items-center border border-b-0 border-r-0 border-l-0 border-[#ecf3fb] dark:border-[#2d3748] border-dashed">
+            <div className="flex w-full flex-col gap-3 border border-b-0 border-l-0 border-r-0 border-dashed border-[#ecf3fb] p-3 dark:border-[#2d3748] sm:flex-row sm:items-center sm:justify-between">
               <PersonalDetail
                 label="Back To Personal Info"
                 emoji={<MdOutlineLocalShipping />}
@@ -309,7 +309,7 @@ const Checkout = () => {
                 <img
                   src="https://sprukomarket.com/products/html/bootstrap/xintra/dist/assets/images/ecommerce/png/24.png"
                   alt=""
-                  className="w-[200px] h-[200px]"
+                  className="h-[160px] w-[160px] sm:h-[200px] sm:w-[200px]"
                 />
               </div>
               <div className="mb-4">
@@ -334,7 +334,7 @@ const Checkout = () => {
           </motion.div>
         )}
       </div>
-      <div className="basis-3/12 h-fit flex flex-col bg-white dark:bg-[#19191C] shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] rounded">
+      <div className="flex h-fit w-full flex-col rounded bg-white shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] dark:bg-[#19191C] xl:basis-3/12">
         <div className="flex gap-[0.25rem] p-3 items-center">
           <div className="text-[#212B37] dark:text-white text-[15.2px] font-medium font-sans">
             Order Summary

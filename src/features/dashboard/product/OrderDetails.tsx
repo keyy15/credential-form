@@ -85,10 +85,10 @@ const data = [
 
 const OrderDetails = () => {
   return (
-    <div className="w-full h-fit flex gap-4">
-      <div className="flex-[8] flex flex-col justify-between bg-white dark:bg-[#19191C] shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] rounded-lg">
+    <div className="flex h-fit w-full flex-col gap-4 xl:flex-row">
+      <div className="flex min-w-0 flex-[8] flex-col justify-between rounded-lg bg-white shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] dark:bg-[#19191C]">
         <div>
-          <div className="flex justify-between p-4">
+          <div className="flex flex-col gap-3 p-4 sm:flex-row sm:justify-between">
             <div className="font-medium text-[15.2px] font-sans text-[#212B37] dark:text-white">
               Order No - <span className="text-[#5C67F7]">#SPK-7832</span>
             </div>
@@ -98,7 +98,7 @@ const OrderDetails = () => {
           </div>
           <DynamicTable columns={columns} data={data} />
         </div>
-        <div className="p-4 flex justify-between mt-auto">
+        <div className="mt-auto flex flex-col gap-2 p-4 sm:flex-row sm:justify-between">
           <ButtonWithEmoji
             label="Print"
             emoji={<RiPrinterLine className="text-lg" />}
@@ -112,7 +112,7 @@ const OrderDetails = () => {
           />
         </div>
       </div>
-      <div className="flex-[4] flex flex-col gap-4">
+      <div className="flex min-w-0 flex-[4] flex-col gap-4">
         <div className="flex-0 h-fit bg-white dark:bg-[#19191C] shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] rounded-lg">
           <Tracking />
         </div>

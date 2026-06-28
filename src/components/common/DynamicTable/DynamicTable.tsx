@@ -61,8 +61,8 @@ const DynamicTable: React.FC<DynamicTableProps> = ({
   };
 
   return (
-    <div className={`relative h-fit overflow-x-auto ${classname}`}>
-      <table className="min-w-full text-sm text-left">
+    <div className={`relative h-fit max-w-full overflow-x-auto ${classname}`}>
+      <table className="min-w-[760px] text-sm text-left md:min-w-full">
         <thead className="sticky h-fit top-0 py-4 bg-white dark:bg-[#111827] border-b border-b-[#ecf3fb] dark:border-b-[#2d3748]">
           <tr>
             {columns.map((col, i) => (

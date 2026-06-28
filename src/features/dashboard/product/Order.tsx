@@ -84,12 +84,12 @@ const data = [
 
 const Orders = () => {
   return (
-    <div className="w-full h-fit flex flex-col bg-white dark:bg-[#19191C] shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] rounded-lg">
-      <div className="p-4 flex justify-between items-center">
+    <div className="flex h-fit w-full flex-col rounded-lg bg-white shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] dark:bg-[#19191C]">
+      <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-lg font-semibold text-[#212b37] dark:text-white">
           Order List
         </h2>
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row">
           <SelectionFilter />
           <SearchField />
         </div>

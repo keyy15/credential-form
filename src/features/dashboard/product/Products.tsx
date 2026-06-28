@@ -165,9 +165,9 @@ const Products = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col justify-between gap-6">
-      <div className="flex justify-between items-center p-[16px] bg-white dark:bg-[#19191C] shadow rounded-lg">
-        <div className="flex items-center gap-4">
+    <div className="flex h-full w-full flex-col justify-between gap-6">
+      <div className="flex flex-col gap-4 rounded-lg bg-white p-[16px] shadow dark:bg-[#19191C] md:flex-row md:items-center md:justify-between">
+        <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-center">
           <h6 className="text-[16px] text-[#212B37] dark:text-white font-bold rounded-full">
             Total{" "}
             <span className="text-[16px] text-[#E354D4] font-bold">
@@ -176,13 +176,13 @@ const Products = () => {
             Available
           </h6>
           {/* Search Input */}
-          <div className="relative flex items-center">
+          <div className="relative flex w-full items-center sm:w-auto">
             <input
               type="text"
               placeholder="Search products..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              className="w-64 pl-9 pr-4 py-1.5 text-sm bg-slate-50 dark:bg-[#2d2d30] border border-slate-200 dark:border-slate-800 rounded-lg text-[#212B37] dark:text-white outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400/20 transition"
+              className="w-full pl-9 pr-4 py-1.5 text-sm bg-slate-50 dark:bg-[#2d2d30] border border-slate-200 dark:border-slate-800 rounded-lg text-[#212B37] dark:text-white outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400/20 transition sm:w-64"
             />
             <svg
               className="absolute left-3 w-4 h-4 text-slate-400"
@@ -199,12 +199,12 @@ const Products = () => {
             </svg>
           </div>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-start md:justify-between">
           <SelectionFilter onSortChange={handleSortChange} />
         </div>
       </div>
-      <div className="flex justify-between gap-6">
-        <div className="w-[75%] h-fit flex flex-col gap-4">
+      <div className="flex flex-col justify-between gap-6 xl:flex-row">
+        <div className="flex h-fit w-full flex-col gap-4 xl:w-[75%]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {products?.map((product, index) => (
               <ProductCard
@@ -233,7 +233,7 @@ const Products = () => {
             </div>
           )}
         </div>
-        <div className="w-[25%] h-fit grid bg-white dark:bg-[#19191C] shadow rounded-lg">
+        <div className="grid h-fit w-full rounded-lg bg-white shadow dark:bg-[#19191C] xl:w-[25%]">
           <div className="flex justify-between px-[16px] pt-[16px]">
             <h6 className="text-[16px] text-[#212B37] dark:text-white font-semibold">Filter</h6>
             <button

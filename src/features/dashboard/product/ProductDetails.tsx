@@ -210,15 +210,15 @@ const ProductDetails = () => {
 
   return (
     <div className="w-full h-fit">
-      <div className="grid grid-cols-5 gap-4">
-        <div className="col-span-2 bg-white shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] rounded">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-5">
+        <div className="rounded bg-white shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] xl:col-span-2">
           <DetailCard
             productName={product?.name}
             images={product?.images}
             primaryImage={product?.primaryImage}
           />
         </div>
-        <div className="col-span-3 col-start-3 bg-white shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] rounded">
+        <div className="rounded bg-white shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] xl:col-span-3 xl:col-start-3">
           <DetailCardInformation
             productName={product?.name}
             ratingAvg={product?.ratingAvg}
@@ -232,7 +232,7 @@ const ProductDetails = () => {
             onAddToCart={() => handleAddToCart(id || "")}
           />
         </div>
-        <div className="col-span-3 row-start-2 bg-white dark:bg-[#19191C] shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] rounded">
+        <div className="rounded bg-white shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] dark:bg-[#19191C] xl:col-span-3 xl:row-start-2">
           <Tabs
             productDetails={{
               productName: product?.brand?.name,
@@ -243,13 +243,13 @@ const ProductDetails = () => {
             }}
           />
         </div>
-        <div className="col-span-2 row-span-2 col-start-4 row-start-2 bg-white dark:bg-[#19191C] shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] rounded">
+        <div className="rounded bg-white shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] dark:bg-[#19191C] xl:col-span-2 xl:col-start-4 xl:row-span-2 xl:row-start-2">
           <FeatureCard
             featureItems={featuredProduct}
             onClick={() => alert("View All")}
           />
         </div>
-        <div className="col-span-3 row-start-3 bg-white dark:bg-[#19191C] shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] rounded">
+        <div className="rounded bg-white shadow-[0px_6px_16px_2px_rgba(0,0,0,0.05)] dark:bg-[#19191C] xl:col-span-3 xl:row-start-3">
           <Review />
         </div>
       </div>
@@ -272,12 +272,12 @@ const ProductDetails = () => {
         <div
           ref={sliderRef}
           onScroll={handleScroll}
-          className="flex overflow-hidden gap-5 scrollbar-hide scroll-smooth"
+          className="flex gap-5 overflow-hidden scroll-smooth scrollbar-hide"
         >
           {relatedProducts.map((p, i) => (
             <div
               key={`${p._id}-${i}`}
-              className="flex-shrink-0 w-[19%] bg-white dark:bg-[#19191C] rounded"
+              className="w-[82%] flex-shrink-0 rounded bg-white dark:bg-[#19191C] sm:w-[45%] lg:w-[30%] xl:w-[19%]"
             >
               <ProductCard
                 product={p as Product} // 👈 cast if needed

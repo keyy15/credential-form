@@ -179,11 +179,11 @@ const CreateProduct = () => {
   };
 
   return (
-    <div className="relative w-full h-full bg-white dark:bg-[#19191C] shadow rounded-lg p-6">
+    <div className="relative h-full w-full rounded-lg bg-white p-4 shadow dark:bg-[#19191C] sm:p-6">
       <form onSubmit={handleSubmit} method="POST">
-        <div className="w-full h-full flex justify-center gap-4">
-          <div className="w-1/2 h-full grid grid-cols-2 gap-x-6 gap-y-4">
-            <div className="row-start-1 row-end-2 col-start-1 col-end-3">
+        <div className="flex h-full w-full flex-col gap-4 xl:flex-row">
+          <div className="grid h-full w-full grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2 xl:w-1/2">
+            <div className="md:col-span-2">
               <FormField
                 label="Product Name"
                 placeholder="Name"
@@ -193,7 +193,7 @@ const CreateProduct = () => {
                 required
               />
             </div>
-            <div className="row-start-2 row-end-3 col-start-1 col-end-2">
+            <div>
               <FormField
                 label="Enter Cost"
                 placeholder="Cost"
@@ -203,7 +203,7 @@ const CreateProduct = () => {
                 onChange={(event) => setCost(event.target.value)}
               />
             </div>
-            <div className="row-start-2 row-end-3 col-start-2 col-end-3">
+            <div>
               <SelectItemField
                 label="Brand"
                 options={brandOptions}
@@ -212,7 +212,7 @@ const CreateProduct = () => {
                 onChange={(val) => setSelectedBrandId(val)}
               />
             </div>
-            <div className="row-start-3 row-end-4 col-start-1 col-end-2">
+            <div>
               <SelectItemField
                 label="Category"
                 options={categoryOptions}
@@ -221,7 +221,7 @@ const CreateProduct = () => {
                 placeholder="Select Category"
               />
             </div>
-            <div className="row-start-3 row-end-4 col-start-2 col-end-3">
+            <div>
               <SelectItemField
                 label="Currency"
                 options={["USD", "RIEL", "YUAN", "EURO"]}
@@ -230,14 +230,14 @@ const CreateProduct = () => {
                 onChange={(val) => setCurrency(val)}
               />
             </div>
-            <div className="row-start-4 row-end-5 col-start-1 col-end-3">
+            <div className="md:col-span-2">
               <ButtonWithEmoji
                 label="Add Varaints"
                 btnClass="!w-full !bg-[rgba(92,103,247,0.1)] !border !border-transparent !text-[rgba(92,103,247)] !font-semibold !px-[6px] !py-[6px] !rounded hover:!bg-[rgba(92,103,247)] hover:!text-white hover:!border hover:!border-[rgba(92,103,247)] transition-all duration-300"
                 onClick={() => showPopup(<Varaint onClose={hidePopup} />)}
               />
             </div>
-            <div className="row-start-5 row-end-6 col-start-1 col-end-3 ">
+            <div className="md:col-span-2">
               <ProductDescriptionInput
                 label="Product Description"
                 helpText="*Description should not exceed 500 letters"
@@ -245,7 +245,7 @@ const CreateProduct = () => {
                 value={description}
               />
             </div>
-            <div className="row-start-6 row-end-7 col-start-1 col-end-2">
+            <div>
               <FormField
                 label="Product Type"
                 placeholder="Type"
@@ -253,7 +253,7 @@ const CreateProduct = () => {
                 onChange={(val) => setProductType(val.target.value)}
               />
             </div>
-            <div className="row-start-6 row-end-7 col-start-2 col-end-3">
+            <div>
               <FormField
                 label="Item Weight"
                 placeholder="Weight in gms"
@@ -261,14 +261,14 @@ const CreateProduct = () => {
                 onChange={(e) => setWeight(e.target.value)}
               />
             </div>
-            <div className="row-start-7 row-end-8 col-start-1 col-end-3">
+            <div className="md:col-span-2">
               <ProductImageInput
                 label="Product Image"
                 onChange={(files) => setImages(files)}
                 value={images}
               />
             </div>
-            <div className="row-start-8 row-end-9 col-start-1 col-end-3">
+            <div className="md:col-span-2">
               <SelectItemField
                 label="Availability"
                 options={["Stock", "Out Of Stock"]}
@@ -278,14 +278,14 @@ const CreateProduct = () => {
               />
             </div>
           </div>
-          <div className="w-1/2 h-full grid grid-cols-6 gap-x-6 gap-y-4">
-            <div className="col-span-6 row-span-3">
+          <div className="grid h-full w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-6 xl:w-1/2">
+            <div className="sm:col-span-2 lg:col-span-6">
               <RichTextEditor label="Product Feature" value={feature} />
             </div>
-            <div className="col-span-6 row-start-4">
+            <div className="sm:col-span-2 lg:col-span-6">
               <ProductImageInput label="Warranty Documents:" />
             </div>
-            <div className="col-span-2 row-start-5">
+            <div className="sm:col-span-1 lg:col-span-2">
               <FormField
                 label="Actual Price"
                 placeholder="Actual Price"
@@ -294,7 +294,7 @@ const CreateProduct = () => {
                 type="number"
               />
             </div>
-            <div className="col-span-2 col-start-3 row-start-5">
+            <div className="sm:col-span-1 lg:col-span-2">
               <FormField
                 label="Stock"
                 placeholder="Enter Stock"
@@ -303,7 +303,7 @@ const CreateProduct = () => {
                 type="number"
               />
             </div>
-            <div className="col-span-2 col-start-5 row-start-5">
+            <div className="sm:col-span-1 lg:col-span-2">
               <FormField
                 label="Discount"
                 placeholder="Discount"
@@ -311,21 +311,21 @@ const CreateProduct = () => {
                 onChange={(val) => setDiscount(val.target.value)}
               />
             </div>
-            <div className="col-span-3 row-start-6">
+            <div className="sm:col-span-1 lg:col-span-3">
               <PublishDateInput
                 label="Publish Date"
                 value={publishDate}
                 onChange={(val) => setPublishDate(val.target.value)}
               />
             </div>
-            <div className="col-span-3 col-start-4 row-start-6">
+            <div className="sm:col-span-1 lg:col-span-3">
               <PublishDateTimeInput
                 label="Publish Time"
                 value={publishTime}
                 onChange={(val) => setPublishTime(val.target.value)}
               />
             </div>
-            <div className="col-span-6 row-start-7">
+            <div className="sm:col-span-2 lg:col-span-6">
               <SelectItemField
                 label="Published Status"
                 options={["Published", "Unpublished"]}
@@ -334,7 +334,7 @@ const CreateProduct = () => {
                 value={status}
               />
             </div>
-            <div className="col-span-6 row-start-8">
+            <div className="sm:col-span-2 lg:col-span-6">
               <MultiSelect
                 options={[
                   "IPhone",
@@ -352,7 +352,7 @@ const CreateProduct = () => {
             </div>
           </div>
         </div>
-        <div className="w-full flex justify-end mt-4">
+        <div className="mt-4 flex w-full justify-end">
           <PrimaryButton type="submit" label="Save Product" />
         </div>
       </form>

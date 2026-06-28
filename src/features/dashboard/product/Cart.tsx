@@ -213,12 +213,12 @@ const Cart = () => {
   };
 
   return (
-    <div className="w-full flex justify-between items-stretch gap-6 h-full">
-      <div className="w-3/4 flex flex-col bg-white dark:bg-[#19191C] shadow rounded-lg overflow-hidden">
+    <div className="flex h-full w-full flex-col items-stretch justify-between gap-6 xl:flex-row">
+      <div className="flex w-full flex-col overflow-hidden rounded-lg bg-white shadow dark:bg-[#19191C] xl:w-3/4">
         <h2 className="p-4 text-[15.2px] text-[#212B37] dark:text-white font-sans font-semibold">
           Cart Items
         </h2>
-        <div className="flex-grow overflow-hidden">
+        <div className="min-w-0 flex-grow overflow-hidden">
           <DynamicTable
             classname="!max-h-[600px] !overflow-y-auto"
             columns={columns}
@@ -241,7 +241,7 @@ const Cart = () => {
         </div>
       </div>
 
-      <div className="flex-none basis-auto w-1/4 h-full flex-col bg-white dark:bg-[#19191C] shadow rounded-lg p-4 gap-8">
+      <div className="flex h-full w-full flex-none basis-auto flex-col gap-8 rounded-lg bg-white p-4 shadow dark:bg-[#19191C] xl:w-1/4">
         <h4 className="font-medium text-[0.95rem] text-black dark:text-white">Order Summary</h4>
 
         <div className="flex flex-col mt-4">
@@ -252,7 +252,7 @@ const Cart = () => {
         </div>
 
         <div className="w-full h-auto flex flex-col py-5 min-h-[1.25rem] border-b border-b-gray-200 border-dashed">
-          <div className="w-full h-auto flex">
+          <div className="flex h-auto w-full">
             <FormField
               className="!w-full !h-full !mt-0 !rounded-l-sm !rounded-r-none"
               placeholder="Enter promo code"
@@ -290,7 +290,7 @@ const Cart = () => {
 
         <div className="flex flex-col mt-4">
           <h4 className="font-semibold font-sans text-[13px] text-[#212b37] dark:text-white">Delivery:</h4>
-          <div className="w-full flex items-center justify-between gap-2 mt-2">
+          <div className="mt-2 flex w-full flex-wrap items-center justify-between gap-2">
             <PrimaryButton
               label="Standard"
               className={getButtonClass("Standard")}

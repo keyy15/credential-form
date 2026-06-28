@@ -593,10 +593,10 @@ const ListProduct: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full bg-white dark:bg-[#19191C] shadow rounded-lg p-6">
-      <div className="flex gap-3">
+    <div className="h-full w-full rounded-lg bg-white p-4 shadow dark:bg-[#19191C] sm:p-6">
+      <div className="flex flex-col gap-3 sm:flex-row">
         <FormInput
-          className="w-[320px]"
+          className="w-full sm:w-[320px]"
           type="text"
           placeholder="Search product here..."
           onChange={handleFoundProduct}
@@ -604,7 +604,7 @@ const ListProduct: React.FC = () => {
         />
         <SelectionFilter onSortChange={handleSortChange} />
       </div>
-      <div className={"w-full h-[600px] overflow-x-auto mt-5"}>
+      <div className="mt-5 h-[520px] w-full overflow-x-auto sm:h-[600px]">
         <DynamicTable
           classname="!max-h-full !overflow-y-auto"
           columns={columns}
@@ -627,7 +627,7 @@ const ListProduct: React.FC = () => {
         />
       </div>
       <nav
-        className="relative w-full h-fit flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
+        className="relative flex h-fit w-full flex-col gap-3 overflow-x-auto pt-4 md:flex-row md:items-center md:justify-between"
         aria-label="Table navigation"
       >
         <span className="text-sm font-normal text-gray-500 dark:text-[#fff] mb-4 md:mb-0 block w-full md:inline md:w-auto">
@@ -640,7 +640,7 @@ const ListProduct: React.FC = () => {
             {totalItems}
           </span>
         </span>
-        <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+        <ul className="inline-flex h-8 min-w-max -space-x-px text-sm rtl:space-x-reverse">
           <li>
             <button
               onClick={() =>
@@ -699,13 +699,13 @@ const ListProduct: React.FC = () => {
       <AnimatePresence>
         {selectionToolbar && (
           <motion.div
-            className="w-fit h-fit fixed bottom-2 left-[50%] transform -translate-x-[25%] -translate-y-1/2 z-50 flex items-center justify-center bg-white dark:bg-[#19191C] shadow-[0px_0px_4px_0px_rgba(0,_0,_0,_0.15)] dark:shadow-[0px_0px_4px_0px_rgba(0,_0,_0,_0.35)] rounded-lg"
+            className="fixed bottom-2 left-1/2 z-50 flex h-fit w-[calc(100%-2rem)] max-w-max -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-x-auto rounded-lg bg-white shadow-[0px_0px_4px_0px_rgba(0,_0,_0,_0.15)] dark:bg-[#19191C] dark:shadow-[0px_0px_4px_0px_rgba(0,_0,_0,_0.35)]"
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={dropdownVariants}
           >
-            <ul className="flex justify-center items-center text-[14px]">
+            <ul className="flex min-w-max items-center justify-center text-[14px]">
               <li className="flex items-center justify-center px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
                 <span className="text-sm font-normal text-gray-500 dark:text-[#fff] mb-4 md:mb-0 block w-full md:inline md:w-auto">
                   <span className="font-semibold text-gray-900 dark:text-white">
