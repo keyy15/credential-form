@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import type { IconType } from "react-icons";
 import { AiOutlineHome } from "react-icons/ai";
@@ -157,6 +157,14 @@ const navigationGroups: NavigationGroup[] = [
 const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
   const location = useLocation();
   const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
+  const [isDesktopViewport, setIsDesktopViewport] = useState(() => {
+    if (typeof window === "undefined") {
+      return true;
+    }
+
+    return window.innerWidth >= 1024;
+  });
+  const showCollapsedSidebar = !isSidebarOpen && isDesktopViewport;
 
   const isItemActive = (item: NavigationItem) => {
     if (item.end) {
@@ -184,6 +192,24 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
     }
   };
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
+    const handleViewportChange = () => {
+      setIsDesktopViewport(desktopQuery.matches);
+    };
+
+    handleViewportChange();
+    desktopQuery.addEventListener("change", handleViewportChange);
+
+    return () => {
+      desktopQuery.removeEventListener("change", handleViewportChange);
+    };
+  }, []);
+
   const getCollapsedItems = (items: NavigationItem[]) =>
     items.flatMap((item) => {
       if (item.children) {
@@ -195,20 +221,20 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-40 flex flex-col overflow-hidden border-r border-white/[0.06] bg-[#111c2d] text-slate-300 shadow-2xl transition-[transform,width] duration-300 ${isSidebarOpen ? "w-72 translate-x-0" : "w-72 -translate-x-full lg:w-20 lg:translate-x-0"
+      className={`fixed inset-y-0 left-0 z-40 flex flex-col overflow-hidden border-r border-white/[0.06] bg-[#111c2d] text-slate-300 shadow-2xl transition-[transform,width] duration-300 ease-in-out will-change-transform ${isSidebarOpen ? "w-72 translate-x-0" : "w-72 -translate-x-full lg:w-20 lg:translate-x-0"
         }`}
     >
       <div
         className={`flex h-[68px] items-center border-b border-white/[0.06] transition-all duration-300 ${
-          isSidebarOpen ? "justify-between px-6" : "justify-center px-0"
+          showCollapsedSidebar ? "justify-center px-0" : "justify-between px-6"
         }`}
       >
         <NavLink
           to="/dashboard"
           className={`flex min-w-0 items-center ${
-            isSidebarOpen
-              ? ""
-              : "h-10 w-10 justify-center overflow-hidden rounded-xl"
+            showCollapsedSidebar
+              ? "h-10 w-10 justify-center overflow-hidden rounded-xl"
+              : ""
           }`}
           onClick={handleItemClick}
         >
@@ -216,9 +242,9 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
             src="/desktop-dark.png"
             alt="Xintra"
             className={
-              isSidebarOpen
-                ? "h-[28px] w-auto"
-                : "h-8 w-28 max-w-none object-cover object-left"
+              showCollapsedSidebar
+                ? "h-8 w-28 max-w-none object-cover object-left"
+                : "h-[28px] w-auto"
             }
           />
         </NavLink>
@@ -235,10 +261,10 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
 
       <nav
         className={`flex-1 overflow-y-auto no-scrollbar ${
-          isSidebarOpen ? "px-4 py-5" : "px-0 py-4"
+          showCollapsedSidebar ? "px-0 py-4" : "px-4 py-5"
         }`}
       >
-        {isSidebarOpen ? (
+        {!showCollapsedSidebar ? (
           navigationGroups.map((group) => (
             <div key={group.title} className="mb-7 last:mb-0">
               <p className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#61748f] opacity-85">
@@ -256,7 +282,7 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
                       <div key={item.label}>
                         <button
                           type="button"
-                          className={`group flex w-full items-center gap-3.5 px-3 py-2.5 text-[14px] font-medium transition-colors duration-200 ${active
+                          className={`group flex w-full min-w-0 items-center gap-3.5 rounded-md px-3 py-2.5 text-[14px] font-medium transition-colors duration-200 ${active
                             ? "text-white bg-transparent"
                             : "text-slate-400 hover:text-white bg-transparent"
                             }`}
@@ -264,13 +290,15 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
                         >
                           {Icon && (
                             <Icon
-                              className={`text-lg transition-colors duration-200 ${active ? "text-white" : "text-slate-400 group-hover:text-white"
+                              className={`shrink-0 text-lg transition-colors duration-200 ${active ? "text-white" : "text-slate-400 group-hover:text-white"
                                 }`}
                             />
                           )}
-                          <span className="flex-1 text-left">{item.label}</span>
+                          <span className="min-w-0 flex-1 truncate text-left">
+                            {item.label}
+                          </span>
                           <FiChevronDown
-                            className={`text-sm text-slate-400 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""
+                            className={`shrink-0 text-sm text-slate-400 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""
                               }`}
                           />
                         </button>
@@ -282,9 +310,10 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
                             }`}
                         >
                           <div className="overflow-hidden">
-                            <div className="mt-1 space-y-1 pb-1 pl-10">
+                            <div className="mt-1 space-y-1 pb-1 pl-6 sm:pl-10">
                               {item.children.map((child) => {
                                 const childActive = isItemActive(child);
+                                const ChildIcon = child.icon;
 
                                 return (
                                   <NavLink
@@ -292,18 +321,29 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
                                     to={child.path}
                                     end={child.end}
                                     onClick={handleItemClick}
-                                    className={`group flex items-center gap-3 px-3 py-2 text-[13.5px] font-medium transition-colors duration-200 ${childActive
+                                    className={`group flex min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium transition-colors duration-200 sm:gap-3 sm:px-3 sm:text-[13.5px] ${childActive
                                       ? "text-white bg-transparent"
                                       : "text-slate-400 hover:text-white bg-transparent"
                                       }`}
                                   >
-                                    <span
-                                      className={`h-px w-2 shrink-0 transition-colors ${childActive
-                                        ? "bg-indigo-400"
-                                        : "bg-slate-600 group-hover:bg-slate-400"
-                                        }`}
-                                    />
-                                    <span>{child.label}</span>
+                                    {ChildIcon ? (
+                                      <ChildIcon
+                                        className={`shrink-0 text-[15px] transition-colors ${childActive
+                                          ? "text-indigo-300"
+                                          : "text-slate-500 group-hover:text-slate-300"
+                                          }`}
+                                      />
+                                    ) : (
+                                      <span
+                                        className={`h-px w-2 shrink-0 transition-colors ${childActive
+                                          ? "bg-indigo-400"
+                                          : "bg-slate-600 group-hover:bg-slate-400"
+                                          }`}
+                                      />
+                                    )}
+                                    <span className="min-w-0 flex-1 truncate">
+                                      {child.label}
+                                    </span>
                                   </NavLink>
                                 );
                               })}
@@ -320,7 +360,7 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
                       to={item.path}
                       end={item.end}
                       onClick={handleItemClick}
-                      className={`group flex items-center gap-3.5 px-3 py-2.5 text-[14px] font-medium transition-colors duration-200 ${active
+                    className={`group flex items-center gap-3.5 px-3 py-2.5 text-[14px] font-medium transition-colors duration-200 ${active
                         ? "text-white bg-transparent"
                         : "text-slate-400 hover:text-white bg-transparent"
                         }`}
