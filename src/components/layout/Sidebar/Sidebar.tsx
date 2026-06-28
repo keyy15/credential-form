@@ -199,7 +199,7 @@ const Sidebar = ({ isSidebarOpen, onClose }: SidebarProps) => {
         }`}
     >
       <div
-        className={`flex h-[73px] items-center border-b border-white/[0.06] transition-all duration-300 ${
+        className={`flex h-[68px] items-center border-b border-white/[0.06] transition-all duration-300 ${
           isSidebarOpen ? "justify-between px-6" : "justify-center px-0"
         }`}
       >

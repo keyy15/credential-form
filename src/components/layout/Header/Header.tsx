@@ -14,7 +14,9 @@ interface HeaderProps {
 
 const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const notificationRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
@@ -42,6 +44,10 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
     .slice(0, 2)
     .toUpperCase();
   const showCloseIcon = !isSidebarOpen;
+  const headerIconButtonClass =
+    "relative inline-flex h-8 w-12 items-center justify-center bg-transparent text-[#61748f] transition hover:text-[#8f3ffc] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8f3ffc]/20 dark:text-slate-300 dark:hover:text-white";
+  const responsiveHeaderIconButtonClass =
+    "relative hidden h-8 w-12 items-center justify-center bg-transparent text-[#61748f] transition hover:text-[#8f3ffc] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8f3ffc]/20 dark:text-slate-300 dark:hover:text-white sm:inline-flex";
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -50,6 +56,13 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
         !notificationRef.current.contains(event.target as Node)
       ) {
         setShowNotifications(false);
+      }
+
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
+        setShowUserMenu(false);
       }
     };
 
@@ -71,70 +84,70 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
   };
 
   return (
-    <header className="sticky top-0 z-20 flex h-[73px] items-center border-b border-slate-200/80 bg-white/90 px-4 backdrop-blur-xl dark:border-white/10 dark:bg-[#19191c]/90 sm:px-6 lg:px-8">
-      <div className="mx-auto flex w-full max-w-full items-center justify-between gap-4">
-        <div className="flex min-w-0 flex-1 items-center gap-3">
+    <header className="sticky top-0 z-20 flex h-[68px] items-center border-b border-[#e2e6f1] bg-white shadow-[0_0_16px_rgba(0,0,0,0.05)] dark:border-white/10 dark:bg-[#19191c]">
+      <div className="flex w-full max-w-full items-center justify-between gap-4 px-4 sm:px-5">
+        <div className="flex min-w-0 flex-1 items-center gap-4">
           <button
             type="button"
             aria-label={isSidebarOpen ? "Hide sidebar" : "Show sidebar"}
             aria-expanded={isSidebarOpen}
-            className="group inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
+            className="group inline-flex h-[25px] w-8 shrink-0 items-center justify-center bg-transparent text-[#61748f] transition hover:text-[#8f3ffc] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8f3ffc]/20 dark:text-slate-300 dark:hover:text-white"
             onClick={toggleSidebar}
           >
-            <span className="relative block h-5 w-5" aria-hidden="true">
+            <span className="relative block h-5 w-[18px]" aria-hidden="true">
               <span
-                className={`absolute left-0 h-0.5 rounded-full bg-current transition-all duration-300 ease-out ${
+                className={`absolute left-0 h-px rounded-full bg-current transition-all duration-300 ease-out ${
                   showCloseIcon
-                    ? "top-1/2 w-5 -translate-y-1/2 rotate-45 group-hover:w-5"
-                    : "top-[3px] w-5 group-hover:w-4"
+                    ? "top-1/2 w-[18px] -translate-y-1/2 rotate-45"
+                    : "top-[4px] w-[18px]"
                 }`}
               />
               <span
-                className={`absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 rounded-full bg-current transition-all duration-200 ease-out ${
+                className={`absolute left-0 top-1/2 h-px w-[18px] -translate-y-1/2 rounded-full bg-current transition-all duration-200 ease-out ${
                   showCloseIcon ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
                 }`}
               />
               <span
-                className={`absolute left-0 h-0.5 rounded-full bg-current transition-all duration-300 ease-out ${
+                className={`absolute left-0 h-px rounded-full bg-current transition-all duration-300 ease-out ${
                   showCloseIcon
-                    ? "bottom-1/2 w-5 translate-y-1/2 -rotate-45 group-hover:w-5"
-                    : "bottom-[3px] w-5 group-hover:w-3"
+                    ? "bottom-1/2 w-[18px] translate-y-1/2 -rotate-45"
+                    : "bottom-[4px] w-[18px]"
                 }`}
               />
             </span>
           </button>
 
-          <div className="hidden w-full max-w-xl items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-slate-500 transition focus-within:border-indigo-300 focus-within:bg-white focus-within:ring-4 focus-within:ring-indigo-500/10 dark:border-white/10 dark:bg-white/5 dark:text-slate-400 dark:focus-within:border-indigo-400/50 dark:focus-within:bg-white/10 md:flex">
-            <IoSearchOutline className="text-lg text-slate-400" />
+          <div className="relative hidden h-[35px] w-full max-w-[320px] items-center md:flex">
+            <IoSearchOutline className="pointer-events-none absolute left-3 text-[15px] text-[#61748f]" />
             <input
               type="text"
-              placeholder="Search anything here .."
-              className="w-full border-0 bg-transparent p-0 text-sm text-slate-700 placeholder:text-slate-400 focus:ring-0 dark:text-white dark:placeholder:text-slate-500"
+              placeholder="Search anything here ..."
+              className="h-full w-full rounded-[5px] border border-[#eff2ff] bg-white pl-9 pr-3 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-[#8f3ffc]/40 focus:ring-2 focus:ring-[#8f3ffc]/10 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-slate-500"
             />
           </div>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center">
           {/* Globe/Language */}
           <button
             type="button"
             aria-label="Language"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
+            className={headerIconButtonClass}
           >
-            <FiGlobe className="text-xl" />
+            <FiGlobe className="text-[21px]" />
           </button>
 
           {/* Theme toggle */}
           <button
             type="button"
             aria-label="Toggle theme"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
+            className={headerIconButtonClass}
             onClick={toggleTheme}
           >
             {theme === "dark" ? (
-              <MdLightMode className="text-xl" />
+              <MdLightMode className="text-[21px]" />
             ) : (
-              <MdDarkMode className="text-xl" />
+              <MdDarkMode className="text-[21px]" />
             )}
           </button>
 
@@ -142,11 +155,11 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
           <button
             type="button"
             aria-label="Shopping Cart"
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
+            className={headerIconButtonClass}
           >
-            <FiShoppingCart className="text-xl" />
-            <span className="absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#8f3ffc] text-[10px] font-bold text-white">
-              6
+            <FiShoppingCart className="text-[21px]" />
+            <span className="absolute right-2 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#8f3ffc] px-1 text-[10px] font-semibold leading-none text-white ring-2 ring-white dark:ring-[#19191c]">
+              5
             </span>
           </button>
 
@@ -155,15 +168,15 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
             <button
               type="button"
               aria-label="Open notifications"
-              className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
+              className={headerIconButtonClass}
               onClick={() => setShowNotifications((current) => !current)}
             >
-              <IoNotificationsOutline className="text-xl" />
-              <span className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full bg-[#ff5d9f] ring-2 ring-white dark:ring-[#19191c]" />
+              <IoNotificationsOutline className="text-[22px]" />
+              <span className="absolute right-3 top-1 h-2 w-2 rounded-full bg-[#ff5d9f] ring-2 ring-white dark:ring-[#19191c]" />
             </button>
 
             {showNotifications && (
-              <div className="absolute right-0 mt-3 w-72 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-xl shadow-slate-900/10 dark:border-white/10 dark:bg-[#19191c] dark:shadow-black/30">
+              <div className="absolute right-0 mt-4 w-72 overflow-hidden rounded-[5px] border border-[#ecf3fb] bg-white shadow-[0_2px_4px_rgba(0,0,0,0.05)] dark:border-white/10 dark:bg-[#19191c] dark:shadow-black/30">
                 <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-white/10">
                   <p className="text-sm font-semibold text-slate-900 dark:text-white">
                     Notifications
@@ -193,7 +206,7 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
           <button
             type="button"
             aria-label="Fullscreen"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
+            className={responsiveHeaderIconButtonClass}
             onClick={() => {
               if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().catch(() => {});
@@ -202,27 +215,71 @@ const Header = ({ isSidebarOpen, toggleSidebar }: HeaderProps) => {
               }
             }}
           >
-            <FiMaximize className="text-xl" />
+            <FiMaximize className="text-[21px]" />
           </button>
 
           {/* User Avatar */}
-          <button
-            type="button"
-            aria-label="User profile"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white p-[3px] text-slate-600 transition hover:border-indigo-200 dark:border-white/10 dark:bg-white/5"
-            onClick={() => navigate("/dashboard/settings")}
-          >
-            <img src="/avatar.jpg" alt="User avatar" className="h-full w-full rounded-md object-cover" />
-          </button>
+          <div className="relative" ref={userMenuRef}>
+            <button
+              type="button"
+              aria-label="User profile"
+              aria-expanded={showUserMenu}
+              className="relative inline-flex h-8 w-11 items-center justify-center bg-transparent text-[#61748f] transition hover:text-[#8f3ffc] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8f3ffc]/20 dark:text-slate-300 dark:hover:text-white"
+              onClick={() => setShowUserMenu((current) => !current)}
+            >
+              <span className="relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-full bg-[#8f3ffc]/10 text-xs font-semibold text-[#8f3ffc]">
+                <span className="absolute">{initials || "A"}</span>
+                <img
+                  src="/avatar.jpg"
+                  alt=""
+                  className="relative z-10 h-full w-full object-cover"
+                  onError={(event) => {
+                    event.currentTarget.style.display = "none";
+                  }}
+                />
+              </span>
+            </button>
+
+            {showUserMenu && (
+              <div className="absolute right-0 mt-4 w-56 overflow-hidden rounded-[5px] border border-[#ecf3fb] bg-white shadow-[0_2px_4px_rgba(0,0,0,0.05)] dark:border-white/10 dark:bg-[#19191c]">
+                <div className="border-b border-slate-100 px-4 py-3 dark:border-white/10">
+                  <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                    {userName}
+                  </p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    UI/UX Designer
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  className="w-full px-4 py-3 text-left text-sm text-slate-600 transition hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5"
+                  onClick={() => {
+                    setShowUserMenu(false);
+                    navigate("/dashboard/settings");
+                  }}
+                >
+                  Profile
+                </button>
+                <button
+                  type="button"
+                  className="flex w-full items-center gap-2 px-4 py-3 text-left text-sm text-slate-600 transition hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5"
+                  onClick={handleLogout}
+                >
+                  <MdOutlineLogout className="text-base" />
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
 
           {/* Settings button */}
           <button
             type="button"
             aria-label="Settings"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10"
+            className={headerIconButtonClass}
             onClick={() => navigate("/dashboard/settings")}
           >
-            <FiSettings className="text-xl" />
+            <FiSettings className="text-[21px]" />
           </button>
         </div>
       </div>
