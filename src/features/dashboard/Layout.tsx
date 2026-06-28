@@ -24,7 +24,7 @@ const Layout = () => {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#111116] dark:text-white">
+    <main className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#2d2d30] dark:text-white">
       <Sidebar
         isSidebarOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}

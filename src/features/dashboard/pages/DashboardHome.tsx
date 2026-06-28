@@ -57,7 +57,7 @@ const statusStyles: Record<OrderStatus, string> = {
 };
 
 const cardClass =
-  "rounded-lg border border-slate-200/80 bg-white shadow-sm shadow-slate-950/[0.03] dark:border-white/10 dark:bg-[#181820] dark:shadow-black/20";
+  "rounded-lg border border-slate-200/80 bg-white shadow-sm shadow-slate-950/[0.03] dark:border-white/10 dark:bg-[#19191c] dark:shadow-black/20";
 
 const StatCard = ({ stat }: { stat: StatItem }) => {
   const Icon = stat.icon;
@@ -279,7 +279,7 @@ const DashboardHome = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 rounded-lg border border-slate-200/80 bg-white px-5 py-5 shadow-sm shadow-slate-950/[0.03] dark:border-white/10 dark:bg-[#181820] sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 rounded-lg border border-slate-200/80 bg-white px-5 py-5 shadow-sm shadow-slate-950/[0.03] dark:border-white/10 dark:bg-[#19191c] sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm font-bold uppercase tracking-[0.14em] text-indigo-600 dark:text-indigo-300">
             Dashboard

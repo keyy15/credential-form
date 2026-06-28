@@ -16,12 +16,12 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .dark {
-    --background-color: #252728;
-    --background-content-color: #1c1c1d;
+    --background-color: #2d2d30;
+    --background-content-color: #19191c;
     --background-grid-color: #1B1B1B;
-    --background-hover-color: #E2E7EB1A;
+    --background-hover-color: rgba(255, 255, 255, 0.05);
     --text-color: #FFFFFF;
     --title-color: #FFFFFF;
-    --section-title-color: #FFFFFF;
-    --border-color: 1px solid #EAECF01A;
+    --section-title-color: #5c67f7;
+    --border-color: 1px solid rgba(255, 255, 255, 0.1);
   }

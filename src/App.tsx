@@ -36,7 +36,7 @@ const DashboardPlaceholder = ({
   title: string;
   description: string;
 }) => (
-  <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#181820]">
+  <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#19191c]">
     <p className="text-sm font-bold uppercase tracking-[0.14em] text-indigo-600 dark:text-indigo-300">
       Workspace
     </p>
@@ -74,7 +74,7 @@ function App() {
         </div>
       }
     >
-      <Routes>
+      <Routes>``
         <Route
           index
           path="/login"

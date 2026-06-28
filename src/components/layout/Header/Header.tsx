@@ -69,7 +69,7 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
   };
 
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 px-4 py-3 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-[#181820]/90 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/90 px-4 py-3 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-[#19191c]/90 sm:px-6 lg:px-8">
       <div className="mx-auto flex w-full max-w-full items-center justify-between gap-4">
         <div className="flex min-w-0 flex-1 items-center gap-3">
           <button
@@ -100,11 +100,11 @@ const Header = ({ toggleSidebar }: HeaderProps) => {
               onClick={() => setShowNotifications((current) => !current)}
             >
               <IoNotificationsOutline className="text-xl" />
-              <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-[#181820]" />
+              <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-[#19191c]" />
             </button>
 
             {showNotifications && (
-              <div className="absolute right-0 mt-3 w-72 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-xl shadow-slate-900/10 dark:border-white/10 dark:bg-[#202029] dark:shadow-black/30">
+              <div className="absolute right-0 mt-3 w-72 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-xl shadow-slate-900/10 dark:border-white/10 dark:bg-[#19191c] dark:shadow-black/30">
                 <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-white/10">
                   <p className="text-sm font-semibold text-slate-900 dark:text-white">
                     Notifications
