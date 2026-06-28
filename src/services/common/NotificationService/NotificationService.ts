@@ -11,6 +11,13 @@ export interface INotification {
     updated: string;
 }
 
+export type NotificationResponse =
+    | INotification[]
+    | {
+        notification?: INotification[];
+        unreadCount?: number;
+    };
+
 export const getAllNotifications = {
-    getNotification: () => axiosClientWorker.get<INotification[]>("/notifications")
+    getNotification: () => axiosClientWorker.get<NotificationResponse>("/notifications")
 }

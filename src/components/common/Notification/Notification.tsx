@@ -12,8 +12,13 @@ const Notification = () => {
     const fetchNotifications = useCallback(async () => {
         try {
             const response = await getAllNotifications?.getNotification();
-            const notifications: INotification[] = response?.data?.notification;
-            const readData = response?.data?.unreadCount;
+            const responseData = response.data;
+            const notifications: INotification[] = Array.isArray(responseData)
+                ? responseData
+                : responseData.notification ?? [];
+            const readData = Array.isArray(responseData)
+                ? responseData.filter((item) => !item.read).length
+                : responseData.unreadCount ?? 0;
             setReadLength(readData);
             setNotification(notifications);
         } catch (e) {

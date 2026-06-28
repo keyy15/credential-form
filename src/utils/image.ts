@@ -1,10 +1,9 @@
+import { API_BASE_URL } from "../services/api/config";
+
 export const DEFAULT_IMG =
   "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg";
 
-export const API_BASE =
-  (import.meta as any)?.env?.VITE_API_BASE_URL ||
-  import.meta.env.REACT_APP_API_BASE ||
-  "http://localhost:5002";
+export const API_BASE = API_BASE_URL;
 
 export const toAbs = (p?: string) => {
   if (!p) return "";

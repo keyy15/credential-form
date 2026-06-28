@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/layout/Header/Header";
 import Sidebar from "../../components/layout/Sidebar/Sidebar";
 import Content from "../../components/layout/Content/Content";
@@ -20,28 +20,28 @@ const Layout = () => {
   }, []);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setIsSidebarOpen((current) => !current);
   };
 
   return (
-    <main className="flex">
-      <Sidebar isSidebarOpen={isSidebarOpen} />
+    <main className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#111116] dark:text-white">
+      <Sidebar
+        isSidebarOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
 
-      <div
-        className={`relative flex flex-col min-h-screen bg-white text-[#212b37] dark:bg-[#19191C] dark:text-[#FFFFFF] transition-all duration-300 ease-in-out ${
-          isSidebarOpen ? "w-full ml-0" : "w-[87%] ml-[13%]"
-        }`}
-      >
-        {/* 🧠 Freeze Header */}
-        <div className="sticky top-0 z-50">
-          <Header toggleSidebar={toggleSidebar} />
-        </div>
+      {isSidebarOpen && (
+        <button
+          type="button"
+          aria-label="Close sidebar"
+          className="fixed inset-0 z-30 bg-slate-950/50 backdrop-blur-sm lg:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
 
-        {/* Content Scroll Area */}
-        <div className="flex-grow overflow-y-auto">
-          <Content />
-        </div>
-
+      <div className="flex min-h-screen flex-col transition-all duration-300 lg:pl-72">
+        <Header toggleSidebar={toggleSidebar} />
+        <Content />
         <Footer />
       </div>
     </main>

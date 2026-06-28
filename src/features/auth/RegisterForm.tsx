@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import Group from "../../assets/group.png";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {setCookie} from "../../utils/cookie";
+import {AuthService} from "../../services/common/AuthService/AuthService";
 
 export const RegisterForm = () => {
     const [name, setName] = useState<string>("");
@@ -13,18 +13,12 @@ export const RegisterForm = () => {
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.post(
-                `http://localhost:5000/api/v1/register`,
-                {
-                    name,
-                    email,
-                    password,
-                }
-            );
+            const response = await AuthService.register({name, email, password});
 
-            const token = response.data.token;
-            if (token) {
-                setCookie("token", token);
+            const {accessToken, user} = response.data;
+            if (accessToken) {
+                setCookie("accessToken", accessToken, 1);
+                setCookie("user", JSON.stringify(user), 1);
                 navigate("/dashboard/product");
             }
 
@@ -112,7 +106,7 @@ export const RegisterForm = () => {
                                 Password
                             </label>
                             <input
-                                type="text"
+                                type="password"
                                 placeholder="*******"
                                 onChange={(e) => setPassword(e.target.value)}
                                 value={password}

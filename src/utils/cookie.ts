@@ -1,11 +1,12 @@
-export function setCookie(name: string, value: string, days: 1) {
-    const expires = new Date(Date.now() + days * 86400000);
-    document.cookie = `accessToken=${value}; ${expires}; path=/; Secure; SameSite=Strict`;
+export function setCookie(name: string, value: string, days = 1) {
+    const expires = new Date(Date.now() + days * 86400000).toUTCString();
+    const secure = window.location.protocol === "https:" ? "; Secure" : "";
+    document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Strict${secure}`;
 }
 
 export function getCookie(name: string): string | null {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    return match ? match[2] : null;
+    const match = document.cookie.match(new RegExp('(^| )' + encodeURIComponent(name) + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
 }
 
 export function deleteCookie(name: string) {

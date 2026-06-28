@@ -6,6 +6,7 @@ import { Product } from "../../../types/ProductType";
 import ButtonWithEmoji from "../../Button/ButtonWithEmoji/ButtonWithEmoji";
 import { FaEdit } from "react-icons/fa";
 import { FaDeleteLeft } from "react-icons/fa6";
+import { toAbs } from "../../../utils/image";
 
 interface VaraintProp {
   fullDataVaraint?: Product;
@@ -22,8 +23,7 @@ const Varaint: React.FC<VaraintProp> = ({
 }) => {
   const [editVaraint, setEditVaraint] = useState<boolean>(false);
 
-  const imageValue =
-    "http://localhost:5002/uploads/1759814049488-218117895.jpg";
+  const imageValue = toAbs("/uploads/1759814049488-218117895.jpg");
 
   const columns = [
     {

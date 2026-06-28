@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Cart from "./features/dashboard/product/Cart";
@@ -15,6 +15,9 @@ const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
 // const HomePage = lazy(() => import("./pages/auth/HomePage"));
 const RegisterPage = lazy(() => import("./pages/auth/RegisterPage"));
 const Dashboard = lazy(() => import("./features/dashboard/Layout"));
+const DashboardHome = lazy(
+  () => import("./features/dashboard/pages/DashboardHome")
+);
 const PublicRoute = lazy(() => import("./routes/PublicRoute"));
 const Product = lazy(
   () => import("./features/dashboard/product/ListProduct")
@@ -24,6 +27,26 @@ const CreateProduct = lazy(
 );
 const ListProduct = lazy(
   () => import("./features/dashboard/product/ListProduct")
+);
+
+const DashboardPlaceholder = ({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) => (
+  <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#181820]">
+    <p className="text-sm font-bold uppercase tracking-[0.14em] text-indigo-600 dark:text-indigo-300">
+      Workspace
+    </p>
+    <h1 className="mt-2 text-2xl font-extrabold text-slate-950 dark:text-white">
+      {title}
+    </h1>
+    <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 dark:text-slate-400">
+      {description}
+    </p>
+  </div>
 );
 
 function App() {
@@ -77,10 +100,7 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route
-            index
-            element={<Navigate to="/dashboard/product/listproduct" replace />}
-          />
+          <Route index element={<DashboardHome />} />
 
           <Route path="product" element={<Product />} />
           <Route path="product/create" element={<CreateProduct />} />
@@ -98,6 +118,33 @@ function App() {
           <Route path="product/checkout" element={<Checkout />} />
           <Route path="product/orderdetails" element={<OrderDetails />} />
           <Route path="product/orders" element={<Orders />} />
+          <Route
+            path="customers"
+            element={
+              <DashboardPlaceholder
+                title="Customers"
+                description="Customer management is ready for its detailed table, segments, and profile views."
+              />
+            }
+          />
+          <Route
+            path="analytics"
+            element={
+              <DashboardPlaceholder
+                title="Analytics"
+                description="Analytics can be expanded with deeper campaign, conversion, and retention reports."
+              />
+            }
+          />
+          <Route
+            path="settings"
+            element={
+              <DashboardPlaceholder
+                title="Settings"
+                description="Settings can host account preferences, team access, billing, and dashboard configuration."
+              />
+            }
+          />
         </Route>
         <Route
           path="*"

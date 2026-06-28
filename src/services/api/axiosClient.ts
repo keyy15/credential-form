@@ -1,26 +1,38 @@
 import axios from "axios";
 import { getCookie, setCookie } from "../../utils/cookie";
+import { API_KEY, API_URL, API_WORKER_URL } from "./config";
 
 const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: API_URL,
   withCredentials: true,
 });
 
 export const axiosClientWorker = axios.create({
-  baseURL: import.meta.env.VITE_API_URL_WORKER,
+  baseURL: API_WORKER_URL,
   withCredentials: true,
 });
+
+const authPaths = ["/login", "/register", "/refresh", "/logout"];
+
+const isAuthPath = (url?: string) => {
+  if (!url) {
+    return false;
+  }
+
+  return authPaths.some(
+    (path) => url === path || url.endsWith(path) || url.includes(`${API_URL}${path}`)
+  );
+};
 
 // Add the access token to headers on every request
 axiosClient.interceptors.request.use(
   (config) => {
     const token = getCookie("accessToken");
-    const apiKey = import.meta.env.VITE_API_KEY;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    if (apiKey) {
-      config.headers["x-api-key"] = apiKey; // custom header
+    if (API_KEY) {
+      config.headers["x-api-key"] = API_KEY;
     }
     return config;
   },
@@ -31,13 +43,12 @@ axiosClient.interceptors.request.use(
 axiosClientWorker.interceptors.request.use(
   (config) => {
     const token = getCookie("accessToken");
-    const apiKey = import.meta.env.VITE_API_KEY;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-      if (apiKey) {
-            config.headers['x-api-key'] = apiKey;
-        }
+    if (API_KEY) {
+      config.headers["x-api-key"] = API_KEY;
+    }
     return config;
   },
   (error) => Promise.reject(error)
@@ -48,20 +59,30 @@ axiosClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const status = error.response?.status;
 
     // If token expired and we haven't already retried this request
-    if (error.response?.status === 403 && !originalRequest._retry) {
+    if (
+      (status === 401 || status === 403) &&
+      originalRequest &&
+      !originalRequest._retry &&
+      !isAuthPath(originalRequest.url)
+    ) {
       originalRequest._retry = true;
 
       try {
         // Try to get a new access token
         const res = await axios.post(
-          `${import.meta.env.VITE_API_URL}/refresh`,
+          `${API_URL}/refresh`,
+          undefined,
           { withCredentials: true }
         );
 
         const newAccessToken = res.data.accessToken;
         setCookie("accessToken", newAccessToken, 1);
+        if (res.data.user) {
+          setCookie("user", JSON.stringify(res.data.user), 1);
+        }
 
         // Add new token to header and retry original request
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;

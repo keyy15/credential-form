@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import Group from "../../assets/group.png";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
 import {setCookie} from "../../utils/cookie";
+import {AuthService} from "../../services/common/AuthService/AuthService";
 
 const LoginForm = () => {
     const [name, setName] = useState("");
@@ -17,20 +17,13 @@ const LoginForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:5002/api/v1/login", {
-                    name,
-                    password,
-                },
-                {
-                    withCredentials: true,
-                });
+            const response = await AuthService.login(name, password);
 
-            const accessToken = response.data.accessToken;
-            const userName = response?.data?.user?.name
+            const {accessToken, user} = response.data;
 
             if (accessToken) {
                 setCookie("accessToken", accessToken, 1);
-                // setCookie("name", userName, 1);
+                setCookie("user", JSON.stringify(user), 1);
                 navigate("/dashboard");
             }
         } catch (err) {
@@ -109,7 +102,7 @@ const LoginForm = () => {
                                 Password
                             </label>
                             <input
-                                type="text"
+                                type="password"
                                 placeholder="Password"
                                 onChange={(e) => setPassword(e.target.value)}
                                 value={password}
